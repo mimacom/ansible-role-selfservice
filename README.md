@@ -1,6 +1,6 @@
-# Ansible Role: zeyple
+# Ansible Role: selfservice
 
-[![Build Status](https://img.shields.io/travis/mimacom/ansible-role-zeyple.svg)](https://travis-ci.org/mimacom/ansible-role-zeyple)
+[![Build Status](https://img.shields.io/travis/mimacom/ansible-role-selfservice.svg)](https://travis-ci.org/mimacom/ansible-role-selfservice)
 
 Installs the [self-service-password](https://ltb-project.org/documentation/self-service-password)
 web application from the ltb-project. The web application allows users to reset
