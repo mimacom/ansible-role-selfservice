@@ -1,0 +1,9 @@
+---
+zeyple_packages:
+  - gnupg2
+  - gpgme
+  - git
+
+selinux_helper_tools:
+  - checkpolicy
+  - policycoreutils-python

@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Remo Wenger
+  description: Installs the self-service-password web application from the ltb-project
+  company: mimacom ag
+
+  license: Apache 2
+
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - security
+    - active-directory
+    - reset
+    - password
+    - sms
+    - token
+
+dependencies:
+  - geerlingguy.nginx
+  - geerlingguy.php
+  - geerlingguy.repo-remi

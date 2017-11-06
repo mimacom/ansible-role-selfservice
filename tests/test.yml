@@ -1,0 +1,10 @@
+---
+- hosts:
+    - all
+    - localhost
+  become: yes
+  remote_user: root
+  vars:
+    - server_name: "accounttest.mimacom.com"
+  roles:
+    - role_under_test

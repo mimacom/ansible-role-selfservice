@@ -1,0 +1,113 @@
+---
+- name: Turn off SELinux
+  replace:
+    backup: yes
+    dest: /etc/selinux/config
+    regexp: 'enforcing'
+    replace: 'disabled'
+
+- name: Run roles
+  include_role:
+    name: geerlingguy.repo-remi
+
+- name: Run roles
+  include_role:
+    name: geerlingguy.php
+  vars:
+    php_webserver_daemon: "nginx"
+    php_enablerepo: "remi-php71"
+    php_enable_php_fpm: true
+
+- name: Run roles
+  include_role:
+    name: geerlingguy.nginx
+  vars:
+    nginx_remove_default_vhost: true
+    nginx_vhosts: 
+      - listen: "80"
+        server_name: "{{ server_name }}"
+        root: "/opt/selfservice"
+        index: "index.php index.html index.htm"
+        #        error_page: ""
+        #        access_log: ""
+        #        error_log: ""
+        state: "present"
+        template: "{{ nginx_vhost_template }}"
+        filename: "selfservice.conf"
+        extra_parameters: |
+          location ~ \.php$ {
+              fastcgi_split_path_info ^(.+\.php)(/.+)$;
+              fastcgi_pass 127.0.0.1:9000;
+              #              fastcgi_pass unix:/var/run/php-fpm.sock;
+              fastcgi_index index.php;
+              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+              include fastcgi_params;
+          }
+
+# nginx
+
+- name: Create web app directory
+  file:
+    path: /opt/selfservice/
+    state: directory
+
+- name: Install web app
+  unarchive:
+    src: "https://github.com/ltb-project/self-service-password/archive/v{{ selfservice_version }}.tar.gz"
+    dest: /opt/selfservice/
+    remote_src: yes
+    extra_opts: "--strip-components=1"
+
+- name: Set LDAP to allow all SSL connections
+  copy:
+    src: ldap.conf
+    dest: /etc/openldap/ldap.conf
+
+
+- name: Configure SMSAPI function
+  template:
+    src: smsapi.inc.php.j2
+    dest: /opt/selfservice/lib/smsapi.inc.php
+
+
+- name: Configure Self Service
+  lineinfile:
+    path: /opt/selfservice/conf/config.inc.php
+    regexp: "^[ \t$]*{{ item.key }}[ \t]*="
+    line: '${{ item.key }} = "{{ item.value }}";'
+  with_items:
+    - key: "ldap_url"
+      value: "{{ ldap_url }}"
+    - key: "ldap_binddn"
+      value: "{{ ldap_binddn }}"
+    - key: "ldap_bindpw"
+      value: "{{ ldap_bindpw }}"
+    - key: "ldap_base"
+      value: "{{ ldap_base }}"
+    - key: "ldap_login_attribute"
+      value: "samaccountname"
+    - key: "ldap_fullname_attribute"
+      value: "displayname"
+    - key: "sms_method"
+      value: "api"
+    - key: "keyphrase"
+      value: "{{ keyphrase }}"
+
+- name: Configure Self Service (bool values)
+  lineinfile:
+    path: /opt/selfservice/conf/config.inc.php
+    regexp: "^[ \t$]*{{ item.key }}[ \t]*="
+    line: '${{ item.key }} = {{ item.value }};'
+  with_items:
+    - key: "ldap_starttls"
+      value: true
+    - key: "ad_mode"
+      value: true
+    - key: "ad_options['force_unlock']"
+      value: true
+    - key: "ad_options['change_expired_password']"
+      value: true
+    - key: "use_questions"
+      value: false
+    - key: "use_tokens"
+      value: false

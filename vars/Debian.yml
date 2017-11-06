@@ -1,0 +1,4 @@
+---
+zeyple_packages:
+  - gnupg
+  - python-gpgme

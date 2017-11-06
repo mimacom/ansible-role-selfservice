@@ -1,0 +1,10 @@
+---
+selfservice_version: 1.1
+server_name: "selfservice.company.invalid"
+ldap_url: "ldap://localhost:389"
+ldap_binddn: "CN=Administrator,CN=Users,DC=mimacom,DC=local"
+ldap_bindpw: "secure"
+ldap_base: "dc=company,dc=invalid"
+keyphrase: "secure"
+smsapi_user: "smsapiuser@company.invalid"
+smsapi_pass: "md5hashedpassword"
