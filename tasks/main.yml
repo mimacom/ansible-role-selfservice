@@ -44,8 +44,6 @@
               include fastcgi_params;
           }
 
-# nginx
-
 - name: Create web app directory
   file:
     path: /opt/selfservice/

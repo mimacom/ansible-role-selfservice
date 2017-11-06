@@ -20,7 +20,7 @@ galaxy_info:
     - sms
     - token
 
-dependencies:
-  - geerlingguy.nginx
-  - geerlingguy.php
-  - geerlingguy.repo-remi
+dependencies: []
+  #  - geerlingguy.nginx
+  #- geerlingguy.php
+  #- geerlingguy.repo-remi
