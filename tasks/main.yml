@@ -90,6 +90,8 @@
       value: "api"
     - key: "keyphrase"
       value: "{{ keyphrase }}"
+    - key: "default_action"
+      value: "sendsms"
 
 - name: Configure Self Service (bool values)
   lineinfile:
@@ -108,4 +110,6 @@
     - key: "use_questions"
       value: false
     - key: "use_tokens"
+      value: false
+    - key: "use_change"
       value: false
