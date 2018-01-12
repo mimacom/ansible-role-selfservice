@@ -46,13 +46,13 @@
 
 - name: Create web app directory
   file:
-    path: /opt/selfservice/
+    path: /opt/selfservice/reset/
     state: directory
 
 - name: Install web app
   unarchive:
     src: "https://github.com/ltb-project/self-service-password/archive/v{{ selfservice_version }}.tar.gz"
-    dest: /opt/selfservice/
+    dest: /opt/selfservice/reset/
     remote_src: yes
     extra_opts: "--strip-components=1"
 
@@ -65,12 +65,12 @@
 - name: Configure SMSAPI function
   template:
     src: smsapi.inc.php.j2
-    dest: /opt/selfservice/lib/smsapi.inc.php
+    dest: /opt/selfservice/reset/lib/smsapi.inc.php
 
 
 - name: Configure Self Service
   lineinfile:
-    path: /opt/selfservice/conf/config.inc.php
+    path: /opt/selfservice/reset/conf/config.inc.php
     regexp: "^[ \t$]*{{ item.key }}[ \t]*="
     line: '${{ item.key }} = "{{ item.value }}";'
   with_items:
@@ -95,7 +95,7 @@
 
 - name: Configure Self Service (bool values)
   lineinfile:
-    path: /opt/selfservice/conf/config.inc.php
+    path: /opt/selfservice/reset/conf/config.inc.php
     regexp: "^[ \t$]*{{ item.key }}[ \t]*="
     line: '${{ item.key }} = {{ item.value }};'
   with_items:
