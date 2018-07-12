@@ -8,3 +8,4 @@ ldap_base: "dc=company,dc=invalid"
 keyphrase: "secure"
 smsapi_user: "smsapiuser@company.invalid"
 smsapi_pass: "md5hashedpassword"
+allowed_lang: []

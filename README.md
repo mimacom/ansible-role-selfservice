@@ -47,6 +47,11 @@ You need an LDAP server (Active Directory) and an account at SMSAPI.com
     # User API password as md5 hash for smsapi.com
     smsapi_pass: "md5hashedpassword"
 
+    # List of allowed app languages. If empty, all languages are allowed.
+    # For possible values, see:
+    # https://ltb-project.org/documentation/self-service-password/1.3/config_general
+    allowed_lang: []
+
 
 ## Dependencies
 
