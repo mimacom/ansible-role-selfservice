@@ -96,8 +96,8 @@
 - name: Configure Self Service allowed language
   lineinfile:
     path: /opt/selfservice/reset/conf/config.inc.php
-    regexp: "^[ \t$]*$allowed_lang[ \t]*="
-    line: "$allowed_lang = array('{{ allowed_lang | join("', '") }}');"
+    regexp: "^[ \t$]*allowed_lang[ \t]*="
+    line: "$allowed_lang = array('{{ allowed_lang | join(',') }}');"
   when: allowed_lang
 
 - name: Configure Self Service (bool values)
