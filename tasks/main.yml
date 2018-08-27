@@ -61,13 +61,6 @@
     src: ldap.conf
     dest: /etc/openldap/ldap.conf
 
-
-- name: Configure SMSAPI function
-  template:
-    src: smsapi.inc.php.j2
-    dest: /opt/selfservice/reset/lib/smsapi.inc.php
-
-
 - name: Configure Self Service misc settings
   lineinfile:
     path: /opt/selfservice/reset/conf/config.inc.php

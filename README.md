@@ -7,7 +7,11 @@ web application from the ltb-project. The web application allows users to reset
 their password using a SMS token.
 
 This role will install nginx, php, remi in order to work. Configure the
-variables to connect to the LDAP server and the [SMSAPI](smsapi.com) service.
+variables to connect to the LDAP server.
+
+Write your own PHP function which connects to your SMS API service of your
+choose. Put the PHP file to `/opt/selfservice/reset/lib/smsapi.inc.php`. Call
+the PHP function `function send_sms_by_api($mobile, $message)`.
 
 Note that this role will also disable SELinux.
 
